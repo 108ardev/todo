@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: 2025-07-07--01-initial-schema.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 2025-07-07--02-add-indexes.sql
+      relativeToChangelogFile: true

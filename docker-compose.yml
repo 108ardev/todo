@@ -1,0 +1,11 @@
+services:
+  # POSTGRES
+  postgres:
+    image: postgres:17
+    container_name: todo_postgres
+    environment:
+      - POSTGRES_DB=todo_db
+      - POSTGRES_USER=todo
+      - POSTGRES_PASSWORD=todo
+    ports:
+      - '5432:5432'
