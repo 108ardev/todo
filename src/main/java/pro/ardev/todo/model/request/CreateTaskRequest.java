@@ -1,4 +1,4 @@
-package pro.ardev.todo.model.dto;
+package pro.ardev.todo.model.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -9,7 +9,7 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record CreateTaskRequestDto(
+public record CreateTaskRequest(
         @NotBlank(message = "Title is mandatory")
         @Size(max = 255, message = "Title must be less than 255 characters")
         String title,

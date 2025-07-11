@@ -1,4 +1,4 @@
-package pro.ardev.todo.model.dto;
+package pro.ardev.todo.model.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import pro.ardev.todo.model.enums.TaskStatus;
 import java.time.LocalDateTime;
 
 @Builder
-public record TaskResponseDto(
+public record TaskResponse(
         long id,
         String title,
         String description,

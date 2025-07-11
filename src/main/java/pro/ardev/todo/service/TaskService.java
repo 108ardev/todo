@@ -1,20 +1,25 @@
 package pro.ardev.todo.service;
 
-import pro.ardev.todo.model.dto.CreateTaskRequestDto;
-import pro.ardev.todo.model.dto.TaskResponseDto;
-import pro.ardev.todo.model.dto.UpdateTaskRequestDto;
+import pro.ardev.todo.model.enums.TaskStatus;
+import pro.ardev.todo.model.request.CreateTaskRequest;
+import pro.ardev.todo.model.request.UpdateTaskRequest;
+import pro.ardev.todo.model.response.TaskResponse;
 
 import java.util.List;
 
 public interface TaskService {
 
-    List<TaskResponseDto> getAllTasks();
+    List<TaskResponse> getAllTasks();
 
-    TaskResponseDto createTask(CreateTaskRequestDto createTaskRequestDto);
+    TaskResponse createTask(CreateTaskRequest createTaskRequest);
 
-    TaskResponseDto getTaskById(Long id);
+    TaskResponse getTaskById(Long id);
 
     void deleteTaskById(Long id);
 
-    TaskResponseDto updateTask(Long id, UpdateTaskRequestDto updateTaskRequestDto);
+    TaskResponse updateTask(Long id, UpdateTaskRequest updateTaskRequest);
+
+    List<TaskResponse> getTasksByStatus(List<TaskStatus> statuses);
+
+    List<TaskResponse> getSortedTasks(String sortBy, String direction);
 }

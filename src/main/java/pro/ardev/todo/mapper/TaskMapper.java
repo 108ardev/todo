@@ -4,9 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import pro.ardev.todo.model.dto.CreateTaskRequestDto;
-import pro.ardev.todo.model.dto.TaskResponseDto;
-import pro.ardev.todo.model.dto.UpdateTaskRequestDto;
+import pro.ardev.todo.model.request.CreateTaskRequest;
+import pro.ardev.todo.model.response.TaskResponse;
+import pro.ardev.todo.model.request.UpdateTaskRequest;
 import pro.ardev.todo.model.entity.Task;
 
 import static org.mapstruct.ReportingPolicy.IGNORE;
@@ -15,12 +15,12 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface TaskMapper {
 
-    Task toEntity(CreateTaskRequestDto request);
+    Task toEntity(CreateTaskRequest request);
 
-    TaskResponseDto toDto(Task task);
+    TaskResponse toResponse(Task task);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    void updateEntity(@MappingTarget Task entity, UpdateTaskRequestDto dto);
+    void updateEntity(@MappingTarget Task entity, UpdateTaskRequest dto);
 }
