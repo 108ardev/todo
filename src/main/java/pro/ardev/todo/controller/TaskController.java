@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pro.ardev.todo.model.dto.CreateTaskRequestDto;
-import pro.ardev.todo.model.dto.TaskResponseDto;
-import pro.ardev.todo.model.dto.UpdateTaskRequestDto;
+import pro.ardev.todo.model.enums.TaskStatus;
+import pro.ardev.todo.model.request.CreateTaskRequest;
+import pro.ardev.todo.model.request.UpdateTaskRequest;
+import pro.ardev.todo.model.response.TaskResponse;
 import pro.ardev.todo.service.TaskService;
 
 import java.util.List;
@@ -29,25 +31,39 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping
-    public List<TaskResponseDto> getAllTasks() {
+    public List<TaskResponse> getAllTasks() {
         return this.taskService.getAllTasks();
+    }
+
+    @GetMapping("/filter")
+    public List<TaskResponse> getTasksByStatus(
+            @RequestParam(required = false) List<TaskStatus> statuses) {
+        return this.taskService.getTasksByStatus(statuses);
+    }
+
+    @GetMapping("/sorted")
+    public List<TaskResponse> getSortedTasks(
+            @RequestParam(defaultValue = "dueDate") String sortBy,
+            @RequestParam(defaultValue = "ASC") String direction) {
+        return this.taskService.getSortedTasks(sortBy, direction);
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public TaskResponseDto createTask(@Valid @RequestBody CreateTaskRequestDto createTaskRequestDto) {
-        return this.taskService.createTask(createTaskRequestDto);
+    public TaskResponse createTask(
+            @Valid @RequestBody CreateTaskRequest createTaskRequest) {
+        return this.taskService.createTask(createTaskRequest);
     }
 
     @PutMapping("/{id}")
-    public TaskResponseDto updateTask(
+    public TaskResponse updateTask(
             @PathVariable Long id,
-            @Valid @RequestBody UpdateTaskRequestDto updateTaskRequestDto) {
-        return this.taskService.updateTask(id, updateTaskRequestDto);
+            @Valid @RequestBody UpdateTaskRequest updateTaskRequest) {
+        return this.taskService.updateTask(id, updateTaskRequest);
     }
 
     @GetMapping("/{id}")
-    public TaskResponseDto getTask(@PathVariable("id") Long id) {
+    public TaskResponse getTask(@PathVariable("id") Long id) {
         return this.taskService.getTaskById(id);
     }
 
